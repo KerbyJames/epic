@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EpicManhwa - Your Manhwa Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header h1 {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 2rem;
+      color: #ff4c60;
+      letter-spacing: 1.5px;
+      cursor: default;
+    }
+    .hero {
+      background: linear-gradient(135deg, #ff4c60 0%, #ff737f 100%);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1rem;
+      font-family: 'Nanum Pen Script', cursive;
+    }
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 8px rgba(0,0,0,0.4);
+    }
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin: 0 auto;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    }
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .manhwa-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+    .manhwa-card {
+      background: #1f1f1f;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(255, 76, 96, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .manhwa-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 20px rgba(255, 76, 96, 0.6);
+    }
+    .manhwa-cover {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-bottom: 4px solid #ff4c60;
+    }
+    .manhwa-content {
+      padding: 1rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .manhwa-title {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #ff4c60;
+      text-shadow: 1px 1px 4px rgba(255, 76, 96, 0.8);
+    }
+    .manhwa-description {
+      font-size: 0.95rem;
+      color: #ccc;
+      flex-grow: 1;
+      margin-bottom: 1rem;
+    }
+    .btn-read {
+      align-self: flex-start;
+      background: #ff4c60;
+      color: #fff;
+      padding: 0.5rem 1.3rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 10px rgba(255, 76, 96, 0.6);
+      transition: background 0.3s ease;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .btn-read:hover {
+      background: #ff737f;
+      box-shadow: 0 6px 15px rgba(255, 115, 127, 0.8);
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: #1f1f1f;
+      color: #777;
+      font-size: 0.9rem;
+      box-shadow: inset 0 1px 0 #2f2f2f;
+    }
+
+    /* Slider Styles */
+    .slider-container {
+      position: relative;
+      width: 120%;
+      max-width: 900px;
+      margin: 2rem auto;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+      background: linear-gradient(135deg, #282828, #1b1b1b);
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      position: relative;
+      user-select: none;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 15px 15px 0 0;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.4);
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 20px;
+      left: 30px;
+      background: rgba(0,0,0,0.6);
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: #f5f5f5;
+      text-shadow: 1px 1px 5px #000;
+    }
+
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      font-size: 2.5rem;
+      width: 50px;
+      height: 75px;
+      cursor: pointer;
+      border-radius: 0 15px 15px 0;
+      user-select: none;
+      transition: background 0.3s ease;
+      z-index: 10;
+    }
+    .nav-arrow:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .nav-arrow:focus {
+      outline: none;
+      background: rgba(255,255,255,0.5);
+    }
+
+    .prev {
+      left: 0;
+      border-radius: 15px 0 0 15px;
+    }
+
+    .next {
+      right: 0;
+      border-radius: 0 15px 15px 0;
+    }
+
+    @media (max-width: 480px) {
+      .hero h2 {
+        font-size: 2.2rem;
+      }
+      .manhwa-cover {
+        height: 260px;
+      }
+      nav a {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero" aria-label="Intro Banner">
+    <h2>Welcome to EpicManhwa</h2>
+    <p>Your ultimate destination to explore and enjoy thrilling manhwa stories from all genres.</p>
+  </section>
+
+  <!-- Slider Section -->
+  <div class="slider-container" aria-label="Manhwa Slider">
+    <button class="nav-arrow prev" aria-label="Previous slide">&#10094;</button>
+    <div class="slider-track">
+      <div class="slide">
+        <img src=c:\Users\PC\Downloads\lookism.jpg alt="Lookism Manhwa Cover" />
+        <div class="caption">Lookism</div>
+      </div>
+      <div class="slide">
+        <img src=c:\Users\PC\Downloads\viral.jpg alt="Viral Hit Manhwa Cover" />
+        <div class="caption">Viral Hit</div>
+      </div>
+      <div class="slide">
+        <img src=c:\Users\PC\Downloads\wind.jpg alt="Wind Breaker Manhwa Cover" />
+        <div class="caption">Wind breaker</div>
+      </div>
+      <div class="slide">
+        <img src=c:\Users\PC\Downloads\5ToNotDie_landingpage_mobile.jpg alt="to not die Manhwa Cover" />
+        <div class="caption">to not die</div>
+      </div>
+      <div class="slide">
+        <img src=c:\Users\PC\Downloads\study-group-and-beelzebub-if-this-manhwa-ever-had-a-v0-1dwsztm4jr9c1.jpg alt="Study group Manhwa Cover" />
+        <div class="caption">Study group</div>
+      </div>
+    </div>
+    <button class="nav-arrow next" aria-label="Next slide">&#10095;</button>
+  </div>
+
+  <main>
+    <section id="latest" aria-label="Latest Manhwa Releases">
+      <h3 style="color:#ff4c60; margin-bottom: 1rem; font-weight:700; font-size:1.6rem;">Latest Releases</h3>
+      <div class="manhwa-grid">
+        <article class="manhwa-card" tabindex="0">
+          <img src="c:\Users\PC\Downloads\solo.jpg" alt="Solo Leveling Cover" class="manhwa-cover" />
+          <div class="manhwa-content">
+            <h4 class="manhwa-title">Solo Leveling</h4>
+            <p class="manhwa-description">Follow Sung Jin-Woo's journey as he evolves from the weakest hunter to the strongest in this action-packed fantasy adventure.</p>
+            <a href="https://manhwaclan.com/manga/solo-leveling/" class="btn-read" aria-label="Read Solo Leveling">Read Now</a>
+          </div>
+        </article>
+        <article class="manhwa-card" tabindex="0">
+          <img src="c:\Users\PC\Downloads\Tower_of_God_Volume_1_Cover.jpg" alt="Tower of God Cover" class="manhwa-cover" />
+          <div class="manhwa-content">
+            <h4 class="manhwa-title">Tower of God</h4>
+            <p class="manhwa-description">Bam enters a mysterious tower filled with challenges and secrets, seeking reunion and power.</p>
+            <a href="link_to_tower_of_god_chapters" class="btn-read" aria-label="Read Tower of God">Read Now</a>
+          </div>
+        </article>
+        <article class="manhwa-card" tabindex="0">
+          <img src="c:\Users\PC\Downloads\81dyqs6GLFL.jpg" alt="The Gamer Cover" class="manhwa-cover" />
+          <div class="manhwa-content">
+            <h4 class="manhwa-title">The Gamer</h4>
+            <p class="manhwa-description">Han Jee-Han gains the ability to treat real life like a game, leveling up in unexpected ways.</p>
+            <a href="link_to_the_gamer_chapters" class="btn-read" aria-label="Read The Gamer">Read Now</a>
+          </div>
+        </article>
+        <article class="manhwa-card" tabindex="0">
+          <img src="c:\Users\PC\Downloads\light.jpg" alt="Light and Shadow Cover" class="manhwa-cover" />
+          <div class="manhwa-content">
+            <h4 class="manhwa-title">Light and Shadow</h4>
+            <p class="manhwa-description">A melancholic romance about a noblewoman forced to marry a secretive commoner.</p>
+            <a href="link_to_light_and_shadow_chapters" class="btn-read" aria-label="Read Light and Shadow">Read Now</a>
+          </div>
+        </article>
+        <!-- Additional Manhwa -->
+        <article class="manhwa-card" tabindex="0">
+          <img src="c:\Users\PC\Downloads\begin.jpg" alt="The Beginning After The End Cover" class="manhwa-cover" />
+          <div class="manhwa-content">
+            <h4 class="manhwa-title">The Beginning After The End</h4>
+            <p class="manhwa-description">A king is reincarnated into a new world full of magic and adventure, seeking to live a better life.</p>
+            <a href="link_to_beginning_after_the_end_chapters" class="btn-read" aria-label="Read The Beginning After The End">Read Now</a>
+          </div>
+        </article>
+        <article class="manhwa-card" tabindex="0">
+          <img src="c:\Users\PC\Downloads\lore.jpg" alt="Lore Olympus Cover" class="manhwa-cover" />
+          <div class="manhwa-content">
+            <h4 class="manhwa-title">Lore Olympus</h4>
+            <p class="manhwa-description">A modern retelling of the story of Hades and Persephone with stunning visuals and drama.</p>
+            <a href="link_to_lore_olympus_chapters" class="btn-read" aria-label="Read Lore Olympus">Read Now</a>
+          </div>
+        </article>
+        <article class="manhwa-card" tabindex="0">
+          <img src="c:\Users\PC\Downloads\nob.jpg" alt="Noblesse Cover" class="manhwa-cover" />
+          <div class="manhwa-content">
+            <h4 class="manhwa-title">Noblesse</h4>
+            <p class="manhwa-description">A powerful noble awakens in the modern world and protects humanity from dark forces.</p>
+            <a href="link_to_noblesse_chapters" class="btn-read" aria-label="Read Noblesse">Read Now</a>
+          </div>
+        </article>
+        <article class="manhwa-card" tabindex="0">
+          <img src="c:\Users\PC\Downloads\true.jpg" alt="True Beauty Cover" class="manhwa-cover" />
+          <div class="manhwa-content">
+            <h4 class="manhwa-title">True Beauty</h4>
+            <p class="manhwa-description">A story about a girl mastering makeup to love herself and confront beauty standards.</p>
+            <a href="link_to_true_beauty_chapters" class="btn-read" aria-label="Read True Beauty">Read Now</a>
+          </div>
+        </article>
+        <article class="manhwa-card" tabindex="0">
+          <img src="c:\Users\PC\Downloads\god.jpg" alt="God of High School" class="manhwa-cover" />
+          <div class="manhwa-content">
+            <h4 class="manhwa-title">God of High School</h4>
+            <p class="manhwa-description">Martial arts tournament fighters battle to become the strongest high schooler with supernatural abilities.</p>
+            <a href="link_to_god_of_high_school_chapters" class="btn-read" aria-label="God of High School">Read Now</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 EpicManhwa. All rights reserved.
+  </footer>
+
+  <script>
+    const track = document.querySelector('.slider-track');
+    const slides = Array.from(track.children);
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+
+    let currentIndex = 0;
+    const slideCount = slides.length;
+    const slideWidth = slides[0].getBoundingClientRect().width;
+
+    function updateSlidePosition() {
+      track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    }
+
+    prevButton.addEventListener('click', () => {
+      currentIndex = currentIndex === 0 ? slideCount - 1 : currentIndex - 1;
+      updateSlidePosition();
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentIndex = currentIndex === slideCount - 1 ? 0 : currentIndex + 1;
+      updateSlidePosition();
+    });
+
+    // Optional: Auto slide every 5 seconds
+    let autoSlideInterval = setInterval(() => {
+      nextButton.click();
+    }, 5000);
+
+    // Pause auto slide on mouse enter and resume on mouse leave
+    document.querySelector('.slider-container').addEventListener('mouseenter', () => {
+      clearInterval(autoSlideInterval);
+    });
+
+    document.querySelector('.slider-container').addEventListener('mouseleave', () => {
+      autoSlideInterval = setInterval(() => {
+        nextButton.click();
+      }, 5000);
+    });
+
+    // Adjust slideWidth on window resize
+    window.addEventListener('resize', () => {
+      const newSlideWidth = slides[0].getBoundingClientRect().width;
+      if(newSlideWidth !== slideWidth){
+        updateSlidePosition();
+      }
+    });
+  </script>
+</body>
+</html>

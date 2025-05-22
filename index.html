@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EpicManhwa - Your Manhwa Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      color: #ff4c60;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #ff737f;
+    }
+    header {
+      background: #1f1f1f;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+     header h1 {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 2rem;
+      color: #ff4c60;
+      letter-spacing: 1.5px;
+      cursor: default;
+     }
+      nav a {
+      margin-left: 1.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+     navbar {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+}
+
+.search-bar {
+   font-family: 'Nanum Pen Script', cursive;
+      font-size: 2rem;
+      color: #ff4c60;
+      letter-spacing: 1.5px;
+      cursor: default;
+}
+
+.search-button, .advanced-button {
+    margin-left: 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-button {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+     iframe {
+      width: 100%;
+      height: 900px; /* Adjusted height */
+      border: none;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: #1f1f1f;
+      color: #777;
+      font-size: 0.9rem;
+      box-shadow: inset 0 1px 0 #2f2f2f;
+    }
+ 
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .hero h2 {
+        font-size: 2.2rem;
+      }
+      .manhwa-cover {
+        height: 260px;
+      }
+      nav a {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body> 
+  <header>
+
+    </div>
+    <h1>EpicManhwa</h1>
+        <div class="navbar">
+        <input type="text" placeholder="Search..." class="search-bar">
+        <button class="search-button">🔍</button>
+    <nav>
+      <a href="home.html" target="iframedisplay">Home</a>
+      <a href="popular.html" target="iframedisplay">Popular</a>
+      <a href="genres.html" target="iframedisplay">Genres</a>
+      <a href="about.html" target="iframedisplay">About</a>
+    </nav>
+  </header>
+  <main>
+    <iframe src="home.html" name="iframedisplay"></iframe>
+  </main>
+</body>
+</html>
